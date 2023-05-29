@@ -5,7 +5,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "0091eb5301c752c02b722ee4bc35c76500412dee"
+      "hash": "29051860edb4f30052997d1547cb60ccff81ee8f"
     },
     "com.unity.burst": {
       "version": "1.8.4",
@@ -14,13 +14,6 @@
       "dependencies": {
         "com.unity.mathematics": "1.2.1"
       },
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.collab-proxy": {
-      "version": "2.0.4",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {},
       "url": "https://packages.unity.com"
     },
     "com.unity.ext.nunit": {
