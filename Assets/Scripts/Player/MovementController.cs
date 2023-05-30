@@ -11,7 +11,8 @@ public class MovementController : MonoBehaviour
 {
 
     // constants
-    private readonly Vector3 inputRotation = new(0, 45, 0);
+    private Vector3 inputRotation;
+    private float screenToWorldYFactor;
 
     // inspector settings
     [SerializeField] private float speed;
@@ -25,6 +26,10 @@ public class MovementController : MonoBehaviour
         // get references
         characterController = GetComponent<CharacterController>();
         mainCam = Camera.main;
+
+        // init variables
+        inputRotation = mainCam!.transform.eulerAngles;
+        screenToWorldYFactor = 1 / Mathf.Sin(inputRotation.y * Mathf.Deg2Rad);
     }
 
     private void FixedUpdate()
@@ -32,19 +37,19 @@ public class MovementController : MonoBehaviour
         // calculate movement
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * speed; // input
         movement.Limit(speed);
-        movement.Rotate(inputRotation);
+        movement.Rotate(0, inputRotation.y, 0);
 
         // apply movement
         characterController.Move(movement * Time.fixedDeltaTime);
 
         // calculate rotation
-        Vector2 delta = Input.mousePosition - mainCam.WorldToScreenPoint(transform.position);
+        Vector3 delta = Input.mousePosition - mainCam.WorldToScreenPoint(transform.position); // input
 
-        float rotation = -delta.GetRotation();
+        delta.y *= screenToWorldYFactor;
+
+        float rotation = -((Vector2)delta).GetRotation();
 
         // apply rotation
         transform.SetAngleY(rotation + inputRotation.y);
     }
-
-    
 }
