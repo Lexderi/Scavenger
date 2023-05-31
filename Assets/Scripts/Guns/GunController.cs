@@ -53,7 +53,7 @@ public abstract class GunController : MonoBehaviour
         RaycastHit[] hits = Physics.RaycastAll(transform.position, direction, float.PositiveInfinity, enemyLayerMask);
 
         // damage first enemy
-        if (hits.Length > 0 && hits[0].transform.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        if (hits.Length > 0 && hits[0].transform.gameObject.layer != LayerMask.NameToLayer("Wall"))
         {
             // TODO: implement enemy killing handling
             print("shot enemy");
