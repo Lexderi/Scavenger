@@ -40,7 +40,7 @@ public class FindPlayer : MonoBehaviour
             canSeePlayer = true;
 
             // stop pathfinding (found player)
-            path.destination = transform.position; // TODO: find better solution for this
+            path.canMove = false;
 
             // look at player
             Vector2 delta2D = new(delta.x, delta.z);
@@ -52,8 +52,8 @@ public class FindPlayer : MonoBehaviour
         // if line of sight stops
         else if (canSeePlayer)
         {
-            print("test");
             // move to last seen player position
+            path.canMove = true;
             path.destination = player.transform.position;
 
             canSeePlayer = false;
