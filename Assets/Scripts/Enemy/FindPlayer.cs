@@ -6,6 +6,7 @@ using LuLib.Transform;
 using LuLib.Vector;
 using Pathfinding;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 using Zenject;
 
@@ -26,7 +27,7 @@ public class FindPlayer : MonoBehaviour
     private IOnSeePlayer[] onSeePlayers;
 
     // vars
-    private bool canSeePlayer;
+    [HideInInspector] public bool CanSeePlayer;
 
     private void Awake()
     {
@@ -45,7 +46,7 @@ public class FindPlayer : MonoBehaviour
 
         if (!Physics.Raycast(transform.position, delta.normalized, delta.magnitude, wallLayer))
         {
-            canSeePlayer = true;
+            CanSeePlayer = true;
 
             // check if its too far away to stop pathfinding
             if (delta.magnitude > maxDistance)
@@ -84,12 +85,12 @@ public class FindPlayer : MonoBehaviour
             }
         } 
         // path find to last seen position of player if line of sight lost
-        else if (canSeePlayer)
+        else if (CanSeePlayer)
         {
             path.canMove = true;
             path.destination = player.transform.position;
 
-            canSeePlayer = false;
+            CanSeePlayer = false;
         }
     }
 }

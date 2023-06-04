@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using LuLib.Vector;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -30,7 +31,7 @@ public abstract class GunController : MonoBehaviour
         magazineCount = MagazineSize;
         cooldownProgress = FireCooldown;
 
-        enemyLayerMask = LayerMask.GetMask("Enemy", "Wall");
+        enemyLayerMask = LayerMask.GetMask("Enemy");
     }
 
     private void Update()
@@ -48,19 +49,29 @@ public abstract class GunController : MonoBehaviour
 
         // calculate shot direction
         Vector3 direction = transform.forward;
-        direction.Rotate(0, Random.Range(-Accuracy, Accuracy), 0); // add accuracy
+        float accuracyRotation = Random.Range(-Accuracy, Accuracy);
+        direction.Rotate(0, accuracyRotation, 0); // add accuracy
 
         RaycastHit[] hits = Physics.RaycastAll(transform.position, direction, float.PositiveInfinity, enemyLayerMask);
+
+        // sort hits by distance
+        hits = hits.OrderBy(hit => hit.distance).ToArray();
 
         // damage first enemy
         if (hits.Length > 0 && hits[0].transform.gameObject.layer != LayerMask.NameToLayer("Wall"))
         {
-            // TODO: implement enemy killing handling
-            print("shot enemy");
+            EnemyController enemy = hits[0].transform.GetComponentInParent<EnemyController>();
+
+            enemy.Damage(Damage);
         }
 
         // emit bullet particle
-        ParticleSystem.Emit(new(), 1);
+        ParticleSystem.EmitParams emitParams = new()
+        {
+            rotation = accuracyRotation
+        };
+
+        ParticleSystem.Emit(emitParams, 1);
 
         // update variables
         cooldownProgress = 0;
