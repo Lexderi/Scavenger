@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using LuLib.Transform;
 using LuLib.Vector;
 using Pathfinding;
@@ -22,14 +23,16 @@ public class FindPlayer : MonoBehaviour
     // references
     private AIPath path;
     [Inject] private PlayerController player;
+    private IOnSeePlayer[] onSeePlayers;
 
     // vars
-    private bool canSeePlayer = false;
+    private bool canSeePlayer;
 
     private void Awake()
     {
         // get references
         path = GetComponent<AIPath>();
+        onSeePlayers = GetComponents<IOnSeePlayer>();
 
         // init constants
         wallLayer = LayerMask.GetMask("Wall");
@@ -37,7 +40,6 @@ public class FindPlayer : MonoBehaviour
 
     private void FixedUpdate()
     {
-
         // check if it can see player
         Vector3 delta = player.transform.position - transform.position;
 
@@ -76,7 +78,10 @@ public class FindPlayer : MonoBehaviour
             float rotation = delta2D.GetRotation();
             transform.SetAngleY(-rotation);
 
-            // TODO: init shooting here or smth
+            foreach (IOnSeePlayer onSeePlayer in onSeePlayers)
+            {
+                onSeePlayer.OnSeePlayer();
+            }
         } 
         // path find to last seen position of player if line of sight lost
         else if (canSeePlayer)
