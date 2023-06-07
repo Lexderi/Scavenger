@@ -1,11 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using DG.Tweening;
 using LuLib.Transform;
 using LuLib.Vector;
 using UnityEngine;
-using Random = System.Random;
 
 [RequireComponent(typeof(CharacterController))]
 public class MovementController : MonoBehaviour
@@ -20,7 +15,7 @@ public class MovementController : MonoBehaviour
     // references
     private CharacterController characterController;
     private Camera mainCam;
-    
+
     private void Awake()
     {
         // get references

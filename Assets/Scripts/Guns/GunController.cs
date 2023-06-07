@@ -1,11 +1,7 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using LuLib.Vector;
-using Unity.VisualScripting;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public abstract class GunController : MonoBehaviour
 {
@@ -39,7 +35,7 @@ public abstract class GunController : MonoBehaviour
         // update cooldownProgress
         cooldownProgress += Time.deltaTime;
 
-        if(Input.GetMouseButton(0)) Shoot();
+        if (Input.GetMouseButton(0)) Shoot();
     }
 
     protected void Shoot()
@@ -78,13 +74,10 @@ public abstract class GunController : MonoBehaviour
         magazineCount--;
 
         // reload if needed
-        if(magazineCount <= 0) Reload();
+        if (magazineCount <= 0) Reload();
     }
 
-    protected void Reload()
-    {
-        StartCoroutine(ReloadCoroutine());
-    }
+    protected void Reload() => StartCoroutine(ReloadCoroutine());
 
     private IEnumerator ReloadCoroutine()
     {

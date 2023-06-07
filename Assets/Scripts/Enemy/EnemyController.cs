@@ -1,9 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using LuLib.Transform;
 using UnityEngine;
-using Zenject;
 
 public abstract class EnemyController : MonoBehaviour
 {
@@ -14,10 +9,7 @@ public abstract class EnemyController : MonoBehaviour
     protected float Health;
     protected bool Dead;
 
-    protected void Awake()
-    {
-        Health = MaxHealth;
-    }
+    protected void Awake() => Health = MaxHealth;
 
     public void Damage(float damage)
     {

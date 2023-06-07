@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -21,7 +22,7 @@ public class PixelizePass : ScriptableRenderPass
     public PixelizePass(PixelizeFeature.CustomPassSettings settings)
     {
         this.settings = settings;
-        this.renderPassEvent = settings.RenderPassEvent;
+        renderPassEvent = settings.RenderPassEvent;
         if (material == null) material = CoreUtils.CreateEngineMaterial("Hidden/Pixelize");
     }
 
@@ -67,9 +68,8 @@ public class PixelizePass : ScriptableRenderPass
 
     public override void OnCameraCleanup(CommandBuffer cmd)
     {
-        if (cmd == null) throw new System.ArgumentNullException(nameof(cmd));
+        if (cmd == null) throw new ArgumentNullException(nameof(cmd));
         cmd.ReleaseTemporaryRT(pixelBufferID);
         //cmd.ReleaseTemporaryRT(pointBufferID);
     }
-
 }
