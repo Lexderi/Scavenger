@@ -1,29 +1,45 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MyBox;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class HealthBarController : MonoBehaviour
 {
+    // inspector settings
+    [SerializeField] [InitializationField] private bool trackPlayer = false;
+
     // references
     private EnemyController enemyController;
+    [Inject]
+    private PlayerController player;
     private Slider healthBar;
 
     private void Awake()
     {
         // get components
-        enemyController = GetComponentInParent<EnemyController>();
+        if(!trackPlayer)
+            enemyController = GetComponentInParent<EnemyController>();
         healthBar = GetComponent<Slider>();
 
         // init health bar variables
-        healthBar.maxValue = enemyController.MaxHealth;
-        healthBar.value = enemyController.MaxHealth;
+        if (trackPlayer)
+        {
+            healthBar.maxValue = player.MaxHealth;
+            healthBar.value = player.MaxHealth;
+        }
+        else
+        {
+            healthBar.maxValue = enemyController.MaxHealth;
+            healthBar.value = enemyController.MaxHealth;
+        }
     }
 
     public void UpdateHealthBar()
     {
-        healthBar.value = enemyController.Health;
+        healthBar.value = trackPlayer ? player.Health : enemyController.Health;
     }
 }
