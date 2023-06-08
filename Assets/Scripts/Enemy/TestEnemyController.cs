@@ -1,6 +1,7 @@
 public class TestEnemyController : EnemyController
 {
-    protected override float MaxHealth => 100;
+    public override float MaxHealth => 100;
+    public override string Name => "Test Enemy";
 
     public override void OnDeath()
     {
