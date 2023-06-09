@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Linq;
 using LuLib.Vector;
+using UnityEditor.UIElements;
 using UnityEngine;
 
 public abstract class GunController : MonoBehaviour
@@ -35,10 +36,10 @@ public abstract class GunController : MonoBehaviour
         // update cooldownProgress
         cooldownProgress += Time.deltaTime;
 
-        if (Input.GetMouseButton(0)) Shoot();
+        if (Input.GetMouseButton(0)) Shoot(enemyLayerMask);
     }
 
-    protected void Shoot()
+    public void Shoot(int targetLayer)
     {
         // check if can shoot
         if (cooldownProgress < FireCooldown || magazineCount <= 0) return;
@@ -48,7 +49,7 @@ public abstract class GunController : MonoBehaviour
         float accuracyRotation = Random.Range(-Accuracy, Accuracy);
         direction.Rotate(0, accuracyRotation, 0); // add accuracy
 
-        RaycastHit[] hits = Physics.RaycastAll(transform.position, direction, float.PositiveInfinity, enemyLayerMask);
+        RaycastHit[] hits = Physics.RaycastAll(transform.position, direction, float.PositiveInfinity, targetLayer);
 
         // sort hits by distance
         hits = hits.OrderBy(hit => hit.distance).ToArray();
@@ -56,9 +57,9 @@ public abstract class GunController : MonoBehaviour
         // damage first enemy
         if (hits.Length > 0 && hits[0].transform.gameObject.layer != LayerMask.NameToLayer("Wall"))
         {
-            EnemyController enemy = hits[0].transform.GetComponentInParent<EnemyController>();
+            IDamageable target = hits[0].transform.GetComponentInParent<IDamageable>();
 
-            enemy.Damage(Damage);
+            target.Damage(Damage);
         }
 
         // emit bullet particle

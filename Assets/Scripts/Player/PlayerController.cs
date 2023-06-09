@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using Zenject;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageable
 {
     // settings
     public float MaxHealth = 100;

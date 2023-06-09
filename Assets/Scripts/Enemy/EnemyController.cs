@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public abstract class EnemyController : MonoBehaviour
+public abstract class EnemyController : MonoBehaviour, IDamageable
 {
     // specs
     public abstract float MaxHealth { get; }
@@ -13,6 +13,7 @@ public abstract class EnemyController : MonoBehaviour
 
     // references
     private HealthBarController healthBar;
+    protected int PlayerLayerMask;
 
     protected void Awake()
     {
@@ -21,6 +22,7 @@ public abstract class EnemyController : MonoBehaviour
 
         // init variables
         Health = MaxHealth;
+        PlayerLayerMask = LayerMask.GetMask("Player");
     }
 
     public void Damage(float damage)
