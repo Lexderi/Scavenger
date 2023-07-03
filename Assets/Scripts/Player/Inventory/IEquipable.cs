@@ -4,5 +4,6 @@ using UnityEngine;
 
 public interface IEquipable
 {
-    
+    public string HudInformation { get; }
+    public void Use();
 }

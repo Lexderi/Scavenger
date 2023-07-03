@@ -36,5 +36,6 @@ public class PlayerController : MonoBehaviour, IDamageable
     public void Die()
     {
         print("player died");
+        // TODO: proper death
     }
 }

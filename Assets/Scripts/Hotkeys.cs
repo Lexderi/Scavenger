@@ -7,7 +7,12 @@ public static class Hotkeys
 {
     private static readonly Dictionary<string, KeyCode> nameToHotkey = new()
     {
-        { "Primary", KeyCode.Alpha1 }
+        // Gameplay
+        { "Shoot", KeyCode.Mouse0 },
+
+        // Inventory
+        { "Primary", KeyCode.Alpha1 },
+        { "Secondary", KeyCode.Alpha2 },
     };
 
     public static KeyCode GetKeyCode(string name)

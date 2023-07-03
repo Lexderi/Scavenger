@@ -1,10 +1,12 @@
+using System;
 using System.Collections;
 using System.Linq;
 using LuLib.Vector;
 using UnityEditor.UIElements;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-public abstract class GunController : MonoBehaviour
+public abstract class GunController : MonoBehaviour, IEquipable
 {
     // specs
     protected abstract float Damage { get; }
@@ -23,6 +25,8 @@ public abstract class GunController : MonoBehaviour
     private uint magazineCount;
     private static int enemyLayerMask;
 
+    public string HudInformation => $"Ammo: {magazineCount} / {MagazineSize}";
+
     private void Awake()
     {
         magazineCount = MagazineSize;
@@ -35,8 +39,6 @@ public abstract class GunController : MonoBehaviour
     {
         // update cooldownProgress
         cooldownProgress += Time.deltaTime;
-
-        if (Input.GetMouseButton(0)) Shoot(enemyLayerMask);
     }
 
     public void Shoot(int targetLayer)
@@ -86,5 +88,10 @@ public abstract class GunController : MonoBehaviour
         yield return new WaitForSeconds(ReloadTime);
         // actually reload
         magazineCount = MagazineSize;
+    }
+
+    public void Use()
+    {
+        Shoot(enemyLayerMask);
     }
 }

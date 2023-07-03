@@ -17,7 +17,6 @@ public class TestEnemyController : EnemyController, IOnSeePlayer
     public override string Name => "Test Enemy";
     public override void OnDeath()
     {
-        print("DEADDDDDDDDDDDDDDD!");
         Destroy(gameObject);
     }
 
