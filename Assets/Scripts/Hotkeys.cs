@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +10,7 @@ public static class Hotkeys
 
         // Inventory
         { "Primary", KeyCode.Alpha1 },
-        { "Secondary", KeyCode.Alpha2 },
+        { "Secondary", KeyCode.Alpha2 }
     };
 
     public static KeyCode GetKeyCode(string name)
@@ -21,6 +19,7 @@ public static class Hotkeys
         {
             return keyCode;
         }
+
         throw new($"Hotkey named {name} does not exist");
     }
 

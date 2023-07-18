@@ -1,10 +1,7 @@
-using System;
 using System.Collections;
 using System.Linq;
 using LuLib.Vector;
-using UnityEditor.UIElements;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public abstract class GunController : MonoBehaviour, IEquipable
 {
@@ -35,11 +32,9 @@ public abstract class GunController : MonoBehaviour, IEquipable
         enemyLayerMask = LayerMask.GetMask("Enemy");
     }
 
-    private void Update()
-    {
+    private void Update() =>
         // update cooldownProgress
         cooldownProgress += Time.deltaTime;
-    }
 
     public void Shoot(int targetLayer)
     {
@@ -90,8 +85,5 @@ public abstract class GunController : MonoBehaviour, IEquipable
         magazineCount = MagazineSize;
     }
 
-    public void Use()
-    {
-        Shoot(enemyLayerMask);
-    }
+    public void Use() => Shoot(enemyLayerMask);
 }

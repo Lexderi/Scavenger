@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using MyBox;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -10,18 +6,17 @@ using Zenject;
 public class HealthBarController : MonoBehaviour
 {
     // inspector settings
-    [SerializeField] [InitializationField] private bool trackPlayer = false;
+    [SerializeField] [InitializationField] private bool trackPlayer;
 
     // references
     private EnemyController enemyController;
-    [Inject]
-    private PlayerController player;
+    [Inject] private PlayerController player;
     private Slider healthBar;
 
     private void Awake()
     {
         // get components
-        if(!trackPlayer)
+        if (!trackPlayer)
             enemyController = GetComponentInParent<EnemyController>();
         healthBar = GetComponent<Slider>();
 
@@ -38,8 +33,5 @@ public class HealthBarController : MonoBehaviour
         }
     }
 
-    public void UpdateHealthBar()
-    {
-        healthBar.value = trackPlayer ? player.Health : enemyController.Health;
-    }
+    public void UpdateHealthBar() => healthBar.value = trackPlayer ? player.Health : enemyController.Health;
 }

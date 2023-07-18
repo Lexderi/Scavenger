@@ -1,7 +1,3 @@
-using System;
-using MyBox;
-using Zenject;
-
 public class TestEnemyController : EnemyController, IOnSeePlayer
 {
     private GunController gun;
@@ -15,10 +11,7 @@ public class TestEnemyController : EnemyController, IOnSeePlayer
 
     public override float MaxHealth => 100;
     public override string Name => "Test Enemy";
-    public override void OnDeath()
-    {
-        Destroy(gameObject);
-    }
+    public override void OnDeath() => Destroy(gameObject);
 
     public void OnSeePlayer()
     {

@@ -1,6 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class InventoryController : MonoBehaviour
@@ -12,7 +10,7 @@ public class InventoryController : MonoBehaviour
     // references
     private IEquipable equipedItem;
     private GameObject currentSlot;
-    [SerializeField] private TMPro.TMP_Text itemInformation;
+    [SerializeField] private TMP_Text itemInformation;
 
     private void Start()
     {

@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 public class PlayerController : MonoBehaviour, IDamageable
@@ -15,11 +13,9 @@ public class PlayerController : MonoBehaviour, IDamageable
     [HideInInspector] public float Health;
 
 
-    private void Awake()
-    {
+    private void Awake() =>
         // init variables
         Health = MaxHealth;
-    }
 
     public void Damage(float damage)
     {
@@ -33,9 +29,6 @@ public class PlayerController : MonoBehaviour, IDamageable
         }
     }
 
-    public void Die()
-    {
-        print("player died");
-        // TODO: proper death
-    }
+    public void Die() => print("player died");
+    // TODO: proper death
 }
