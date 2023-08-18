@@ -9,11 +9,11 @@ public class InventoryController : MonoBehaviour
     public bool IsOpen => isOpen;
 
     [Separator("References")]
-    [SerializeField] private Canvas inventoryCanvas;
+    [SerializeField] private Canvas canvas;
 
     private void Start()
     {
-        inventoryCanvas.gameObject.SetActive(isOpen);
+        canvas.gameObject.SetActive(isOpen);
     }
 
     private void Update()
@@ -25,6 +25,6 @@ public class InventoryController : MonoBehaviour
     private void ToggleInventory()
     {
         isOpen = !IsOpen;
-        inventoryCanvas.gameObject.SetActive(isOpen);
+        canvas.gameObject.SetActive(isOpen);
     }
 }
