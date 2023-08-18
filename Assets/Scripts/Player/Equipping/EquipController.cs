@@ -9,16 +9,20 @@ public class EquipController : MonoBehaviour
     [SerializeField] private GameObject secondarySlot;
 
     // references
-    private IEquipable equipedItem;
+    private IEquipable equippedItem;
     private GameObject currentSlot;
     [SerializeField] private TMP_Text itemInformation;
 
+<<<<<<< HEAD
     [Inject] private InventoryManager mInventory;
+=======
+    [Inject] private readonly InventoryManager mInventory;
+>>>>>>> main
 
     private void Start()
     {
         currentSlot = primarySlot;
-        equipedItem = primarySlot.GetComponentInChildren<IEquipable>();
+        equippedItem = primarySlot.GetComponentInChildren<IEquipable>();
     }
 
     private void Update()
@@ -30,10 +34,10 @@ public class EquipController : MonoBehaviour
         else if (Hotkeys.GetKeyDown("Secondary")) SwitchToSlot(secondarySlot);
 
         // check shoot hotkeys
-        if (Hotkeys.GetKey("Shoot")) equipedItem.Use();
+        if (Hotkeys.GetKey("Shoot")) equippedItem.Use();
 
         // display item information
-        itemInformation.text = equipedItem.HudInformation;
+        itemInformation.text = equippedItem.HudInformation;
     }
 
     private void SwitchToSlot(GameObject slot)
@@ -42,7 +46,7 @@ public class EquipController : MonoBehaviour
         if (slot.transform.childCount < 1) return;
 
         // get new item
-        equipedItem = slot.GetComponentInChildren<IEquipable>();
+        equippedItem = slot.GetComponentInChildren<IEquipable>();
 
         // deactivate old slot and activate current
         currentSlot.SetActive(false);
