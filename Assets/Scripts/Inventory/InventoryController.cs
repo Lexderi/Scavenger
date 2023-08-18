@@ -2,7 +2,7 @@ using System;
 using MyBox;
 using UnityEngine;
 
-public class InventoryManager : MonoBehaviour
+public class InventoryController : MonoBehaviour
 {
     [Separator("Variables")]
     [SerializeField] [InitializationField] private bool isOpen;

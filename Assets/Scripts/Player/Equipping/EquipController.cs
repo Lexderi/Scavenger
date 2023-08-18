@@ -13,11 +13,7 @@ public class EquipController : MonoBehaviour
     private GameObject currentSlot;
     [SerializeField] private TMP_Text itemInformation;
 
-<<<<<<< HEAD
-    [Inject] private InventoryManager mInventory;
-=======
-    [Inject] private readonly InventoryManager mInventory;
->>>>>>> main
+    [Inject] private readonly InventoryController mInventory;
 
     private void Start()
     {
