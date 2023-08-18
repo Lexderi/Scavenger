@@ -8,9 +8,12 @@ public static class Hotkeys
         // Gameplay
         { "Shoot", KeyCode.Mouse0 },
 
-        // Inventory
+        // Equipping
         { "Primary", KeyCode.Alpha1 },
-        { "Secondary", KeyCode.Alpha2 }
+        { "Secondary", KeyCode.Alpha2 },
+
+        // Inventory
+        { "ToggleInventory", KeyCode.Tab }
     };
 
     public static KeyCode GetKeyCode(string name)
