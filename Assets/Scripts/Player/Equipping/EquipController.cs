@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class InventoryController : MonoBehaviour
+public class EquipController : MonoBehaviour
 {
     // slot references
     [SerializeField] private GameObject primarySlot;
