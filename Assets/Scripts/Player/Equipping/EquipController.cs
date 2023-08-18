@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 public class EquipController : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class EquipController : MonoBehaviour
     private GameObject currentSlot;
     [SerializeField] private TMP_Text itemInformation;
 
+    [Inject] private InventoryManager mInventory;
+
     private void Start()
     {
         currentSlot = primarySlot;
@@ -20,6 +23,8 @@ public class EquipController : MonoBehaviour
 
     private void Update()
     {
+        if (mInventory.IsOpen) return;
+
         // check equip hotkeys
         if (Hotkeys.GetKeyDown("Primary")) SwitchToSlot(primarySlot);
         else if (Hotkeys.GetKeyDown("Secondary")) SwitchToSlot(secondarySlot);
