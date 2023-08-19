@@ -4,7 +4,7 @@ public class TestGun : GunController
 {
     protected override float Damage => 10;
     protected override float FireCooldown => 0.1f;
-    protected override float Accuracy => 0;
+    protected override float Spread => 0;
     protected override uint MagazineSize => 10;
     protected override float ReloadTime => 1;
     public override float MovementSpeedPenalty => 1;

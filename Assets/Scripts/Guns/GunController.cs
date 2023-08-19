@@ -1,21 +1,24 @@
 using System.Collections;
 using System.Linq;
 using LuLib.Vector;
+using MyBox;
 using UnityEngine;
 
-public abstract class GunController : MonoBehaviour, IEquipable
+public abstract class GunController : MonoBehaviour, IEquipable, IItem
 {
     // specs
     protected abstract float Damage { get; }
     protected abstract float FireCooldown { get; }
-    protected abstract float Accuracy { get; }
+    protected abstract float Spread { get; }
     protected abstract uint MagazineSize { get; }
     protected abstract float ReloadTime { get; }
     public abstract float MovementSpeedPenalty { get; }
     protected abstract float Handling { get; }
-
-    // references
+    InventoryItemData IItem.InventoryData => inventoryData;
+    
     protected abstract ParticleSystem ParticleSystem { get; }
+    [Separator("References")]
+    [SerializeField] private InventoryItemData inventoryData;
 
     // variables
     private float cooldownProgress;
@@ -29,7 +32,7 @@ public abstract class GunController : MonoBehaviour, IEquipable
         magazineCount = MagazineSize;
         cooldownProgress = FireCooldown;
 
-        enemyLayerMask = LayerMask.GetMask("Enemy");
+        enemyLayerMask = LayerMask.GetMask("Enemy", "Wall");
     }
 
     private void Update() =>
@@ -43,8 +46,8 @@ public abstract class GunController : MonoBehaviour, IEquipable
 
         // calculate shot direction
         Vector3 direction = transform.forward;
-        float accuracyRotation = Random.Range(-Accuracy, Accuracy);
-        direction.Rotate(0, accuracyRotation, 0); // add accuracy
+        float spread = Random.Range(-Spread, Spread);
+        direction.Rotate(0, spread, 0); // add spread
 
         RaycastHit[] hits = Physics.RaycastAll(transform.position, direction, float.PositiveInfinity, targetLayer);
 
@@ -62,7 +65,7 @@ public abstract class GunController : MonoBehaviour, IEquipable
         // emit bullet particle
         ParticleSystem.EmitParams emitParams = new()
         {
-            rotation = accuracyRotation
+            rotation = spread
         };
 
         ParticleSystem.Emit(emitParams, 1);
