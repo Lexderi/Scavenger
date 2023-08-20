@@ -4,7 +4,7 @@ using LuLib.Vector;
 using MyBox;
 using UnityEngine;
 
-public abstract class GunController : MonoBehaviour, IEquipable, IItem
+public abstract class GunController : MonoBehaviour, IEquipable
 {
     // specs
     protected abstract float Damage { get; }
@@ -89,4 +89,6 @@ public abstract class GunController : MonoBehaviour, IEquipable, IItem
     }
 
     public void Use() => Shoot(enemyLayerMask);
+
+    public GameObject GetGameObject() => gameObject;
 }

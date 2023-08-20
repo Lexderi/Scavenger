@@ -9,6 +9,6 @@ public class InventoryItemData : ScriptableObject
     public string DisplayName;
     public Sprite Sprite;
     public GameObject Prefab;
-    public Vector2 Size;
+    public Vector2Int Size;
     public ItemCategory Category;
 }

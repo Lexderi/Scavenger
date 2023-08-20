@@ -1,3 +1,4 @@
+using MyBox;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -48,5 +49,11 @@ public class EquipController : MonoBehaviour
         currentSlot.SetActive(false);
         slot.SetActive(true);
         currentSlot = slot;
+    }
+
+    [ButtonMethod]
+    private void TestInventory()
+    {
+        mInventory.TryAddItem(Vector2Int.zero, equippedItem);
     }
 }

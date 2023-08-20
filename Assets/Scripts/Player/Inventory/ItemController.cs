@@ -16,6 +16,8 @@ public class ItemController : MonoBehaviour
     [MustBeAssigned] [SerializeField] private TMP_Text nameText;
     [MustBeAssigned] [SerializeField] private TMP_Text categoryText;
 
+    [HideInInspector] public GameObject Item;
+
     private RectTransform rectTransform;
 
     private void Awake()
