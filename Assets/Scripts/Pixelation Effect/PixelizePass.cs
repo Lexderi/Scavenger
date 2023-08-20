@@ -28,7 +28,9 @@ public class PixelizePass : ScriptableRenderPass
 
     public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
     {
+#pragma warning disable CS0618
         colorBuffer = renderingData.cameraData.renderer.cameraColorTarget;
+#pragma warning restore CS0618
         RenderTextureDescriptor descriptor = renderingData.cameraData.cameraTargetDescriptor;
 
         //cmd.GetTemporaryRT(pointBufferID, descriptor.width, descriptor.height, 0, FilterMode.Point);
@@ -58,8 +60,10 @@ public class PixelizePass : ScriptableRenderPass
             //Blit(cmd, pointBuffer, pixelBuffer);
             //Blit(cmd, pixelBuffer, colorBuffer);
 
+#pragma warning disable CS0618
             Blit(cmd, colorBuffer, pixelBuffer, material);
             Blit(cmd, pixelBuffer, colorBuffer);
+#pragma warning restore CS0618
         }
 
         context.ExecuteCommandBuffer(cmd);
